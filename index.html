@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetShop</title>
+
+  <!-- icon -->
+  <link rel="shortcut icon" href="./src/assets/icon/faviconCat.png" type="image/x-icon">
+
+  <!-- style -->
+  <link rel="stylesheet" href="./src/css/index.min.css">
+</head>
+<body>
+    
+  <div class="app" id="app" v-cloak>
+    <header class="header" id="header">
+      <label for="burgerInp" class="header__burger">
+        <input type="checkbox" id="burgerInp">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <span class="header__dbNav">
+        <img src="./src/assets/icon/faviconCat.png" alt="cat" class="header__dbNav-smoll-logo">
+        <a href="#" class="header__dbNav-title-logo">PetShop</a>
+      </span>
+
+      <nav class="header__nav">
+        <span class="header__nav-span">
+          <img src="./src/assets/icon/faviconCat.png" alt="cat" class="header__nav-item_logo-img">
+          <a href="#" class="header__nav-item header__nav-item_logo">PetShop</a>
+        </span>
+  
+        <span class="header__nav-span">
+          <a href="#" class="header__nav-item" @click.prevent="currentPage = 'Главная'" :class="{ active:currentPage === 'Главная' }">Главная</a>
+          <a href="#" class="header__nav-item" @click.prevent="currentPage = 'Кошки'" :class="{ active:currentPage === 'Кошки' }">Кошки</a>
+          <a href="#" class="header__nav-item" @click.prevent="currentPage = 'Собаки'" :class="{ active:currentPage === 'Собаки' }">Собаки</a>
+          <a href="#" class="header__nav-item" @click.prevent="currentPage = 'Другие питомцы'" :class="{ active:currentPage === 'Другие питомцы' }">Другие питомцы</a>
+          <a href="#" class="header__nav-item" @click.prevent="currentPage = 'Панель Администрации'" :class="{ active:currentPage === 'Панель Администрации' }" v-if="isAdmin">Панель Администрации</a>
+        </span>
+  
+        <span class="header__nav-span">
+          <a href="#" class="header__nav-item" @click.prevent="currentPage = 'Вход'" :class="{ active:currentPage === 'Вход' }" v-if="!isAuth">Вход</a>
+          <p class="header__nav-item header__nav-item_border" v-if="!isAuth">/</p>
+          <a href="#" class="header__nav-item" @click.prevent="currentPage = 'Регистрация'" :class="{ active:currentPage === 'Регистрация' }" v-if="!isAuth">Регистрация</a>
+          <p class="header__nav-item header__nav-item_exit" v-if="isAuth">Выход</p>
+        </span>
+      </nav>
+    </header>
+
+    <section class="page" v-if="currentPage === 'Главная'">
+      <!-- <v-swiper></v-swiper> -->
+
+      <div class="box" id="boxCanvas">
+        <img class="box__img" src="./src/assets/img/bgDog.png" alt="dog-big-dog">
+        <h1 class="box__title">Магазин домашних животных =3<br>Угости своего маленького друга.</h1>
+        <button class="box__btn" @click="goto">Угостить</button>
+        <canvas class="canvas" id="canvas" v-if="currentPage === 'Главная'"></canvas>
+      </div>
+
+      <div class="about">
+        <h2 class="about__title">О нас</h2>
+        <p class="about__body">PetShop - крупнейшая <span class="span span__orange">сеть зоомагазинов</span> и интернет-магазин с
+          доставкой по всей России. На сайте PetShop.ru представлен <span class="span span__orange">широкий</span>
+          выбор зоотоваров, <span class="span span__orange">акции и бонусы</span>, а также сервисы по подбору
+          кормов и полезные статьи о <span class="span span__orange">домашних животных</span>.
+        </p>
+
+        <div class="about__prompt">
+          <span v-for="(item, index) in arrayPrompt" :key="index" class="about__prompt-item">
+            <img :src="'./src/assets/icon/' + item.icon" class="about__prompt-item-img">
+            <h3 class="about__prompt-item-body">{{ item.body }}</h3>
+          </span>
+        </div>
+      </div>
+
+      <div class="stock">
+        <h4 class="stock__title" ref="stock">Акции</h4>
+        <v-card v-for="(item, index) in arrayAction" :key="index" :item="item" :index="index" v-show="index >= (currentNavPage*countNavPage)-countNavPage && (currentNavPage*countNavPage) > index"></v-card>
+        <div class="stock__pagination">
+          <span class="stock__pagination-item" v-for="(item, index) in Math.ceil(arrayAction.length / 3)" @click="nextStock(index)" v-show="index >= (currentNavIndex - 1) && (currentNavIndex + 2) >= index">{{ index+1 }}</span>
+        </div>
+      </div>
+
+      <div class="pets-history">
+        <h5 class="pets-history__title">Милые истории домашних животных</h5>
+        <v-slider :array="arraySlide" :time="11.3"></v-slider>
+      </div>
+    </section>
+
+    <section class="page" v-if="currentPage === 'Кошки'">О Кошки</section>
+    <section class="page" v-if="currentPage === 'Собаки'">Собаки</section>
+    <section class="page" v-if="currentPage === 'Другие питомцы'">Другие питомцы</section>
+    <section class="page" v-if="currentPage === 'Панель Администрации'">Панель Администрации</section>
+    <section class="page" v-if="currentPage === 'Вход'">Вход</section>
+    <section class="page" v-if="currentPage === 'Регистрация'">Регистрация</section>
+
+    <footer class="footer" id="footer">
+      <div class="footer__container">
+        <h6 class="footer__title">Хотите задать вопрос?</h6>
+  
+        <div class="footer__tel">
+          <span class="footer__tel-span">
+            <a class="footer__tel-span-text" href="tel:+74912776783">+7 (491) 277-67-83</a>
+            <a class="footer__tel-span-text">Напишите нам</a>
+            <a class="footer__tel-span-text">Оплатить заказ онлайн</a>
+          </span>
+  
+          <span class="footer__tel-span footer__tel-span_two">
+            <img class="footer__tel-span footer__tel-span_two-img" ref="telImg" src="./src/assets/icon/footerIconOneWhite.png" alt="icon">
+            <img class="footer__tel-span footer__tel-span_two-img" ref="telImg" src="./src/assets/icon/footerIconTwoWhite.png" alt="icon">
+            <img class="footer__tel-span footer__tel-span_two-img" ref="telImg" src="./src/assets/icon/footerIconThreeWhite.png" alt="icon">
+          </span>
+        </div>
+  
+        <form class="footer__form">
+          <span class="footer__form-span">
+            <label for="footerInputOne" class="footer__form-span-label">Выбор корма по заболеваниям: </label>
+            <input type="email" placeholder="serega@email.com" id="footerInputOne" class="footer__form-span-input" v-model="footerSearch">
+            <button class="footer__form-span-btn" type="submit">
+              <img src="./src/assets/icon/footerSearch.png" alt="search" ref="footer_img">
+            </button>
+          </span>
+        </form>
+      </div>
+    </footer>
+  </div>
+
+  <img class="loader" src="./src/assets/gif/5UKD.gif"></img>
+
+  <script src="./src/vue/vue.global.js"></script>
+  <script src="./src/vue/index.js" type="module"></script>
+</body>
+</html>
