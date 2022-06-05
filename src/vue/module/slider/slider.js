@@ -4,9 +4,14 @@ export default {
   template: `
     <div class="slider" ref="slider">
       <div class="slider__list">
-        <v-slide v-for="(item, index) in array" :key="index" :item="item" :index="index" :currentSlide="currentSlide"></v-slide>
+        <v-slide v-for="(item, index) in array" :key="index" :item="item" :index="index" :currentSlide="currentSlide" :dbwidth="dbwidth"></v-slide>
       </div>
     </div>
+
+    <span class="slider__arrow" v-show="width > 1199">
+      <img src="./src/assets/icon/sliderArrowOrange.png" alt="arrow" @click="sliderArrow('left')" class="slider__arrow_left" ref="arrowsliderone">
+      <img src="./src/assets/icon/sliderArrowOrange.png" alt="arrow" @click="sliderArrow('right')" class="slider__arrow_right" ref="arrowslidertwo">
+    </span>
   `,
 
   data(){
@@ -45,6 +50,23 @@ export default {
       }
     },
 
+    sliderArrow(side){
+      // console.log(side);
+      if(side === 'left'){
+        this.$refs.arrowsliderone.src = './src/assets/icon/sliderArrowBlack.png'
+        this.prevSlide()
+        setTimeout(() => {
+          this.$refs.arrowsliderone.src = './src/assets/icon/sliderArrowOrange.png'
+        }, 200)
+      }else{
+        this.$refs.arrowslidertwo.src = './src/assets/icon/sliderArrowBlack.png'
+        this.nextSlide()
+        setTimeout(() => {
+          this.$refs.arrowslidertwo.src = './src/assets/icon/sliderArrowOrange.png'
+        }, 200)
+      }
+    },
+
     nextSlide(){
       (this.currentSlide + 1) >= this.array.length ? this.currentSlide = 0 : this.currentSlide++ 
     },
@@ -66,5 +88,5 @@ export default {
     vSlide
   },
 
-  props: ['array', 'time']
+  props: ['array', 'time', 'dbwidth', 'width']
 }

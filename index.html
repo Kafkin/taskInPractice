@@ -58,7 +58,7 @@
         <img class="box__img" src="./src/assets/img/bgDog.png" alt="dog-big-dog">
         <h1 class="box__title">Магазин домашних животных =3<br>Угости своего маленького друга.</h1>
         <button class="box__btn" @click="goto">Угостить</button>
-        <canvas class="canvas" id="canvas" v-if="currentPage === 'Главная'"></canvas>
+        <v-canvas></v-canvas>
       </div>
 
       <div class="about">
@@ -79,15 +79,17 @@
 
       <div class="stock">
         <h4 class="stock__title" ref="stock">Акции</h4>
-        <v-card v-for="(item, index) in arrayAction" :key="index" :item="item" :index="index" v-show="index >= (currentNavPage*countNavPage)-countNavPage && (currentNavPage*countNavPage) > index"></v-card>
+        <div class="stock__container">
+          <v-card v-for="(item, index) in arrayAction" :key="index" :item="item" :index="index" v-show="index >= (currentNavPage*countNavPage)-countNavPage && (currentNavPage*countNavPage) > index"></v-card>
+        </div>
         <div class="stock__pagination">
-          <span class="stock__pagination-item" v-for="(item, index) in Math.ceil(arrayAction.length / 3)" @click="nextStock(index)" v-show="index >= (currentNavIndex - 1) && (currentNavIndex + 2) >= index">{{ index+1 }}</span>
+          <span class="stock__pagination-item" v-for="(item, index) in Math.ceil(arrayAction.length / countNavPage)" @click="nextStock(index)" v-show="index >= (currentNavIndex - 1) && (currentNavIndex + 2) >= index">{{ index+1 }}</span>
         </div>
       </div>
 
       <div class="pets-history">
         <h5 class="pets-history__title">Милые истории домашних животных</h5>
-        <v-slider :array="arraySlide" :time="11.3"></v-slider>
+        <v-slider :array="arraySlide" :time="11.3" :dbwidth="dbwidth" :width="width"></v-slider>
       </div>
     </section>
 
@@ -104,9 +106,20 @@
   
         <div class="footer__tel">
           <span class="footer__tel-span">
-            <a class="footer__tel-span-text" href="tel:+74912776783">+7 (491) 277-67-83</a>
-            <a class="footer__tel-span-text">Напишите нам</a>
-            <a class="footer__tel-span-text">Оплатить заказ онлайн</a>
+            <span class="footer__tel-span_item">
+              <img src="./src/assets/icon/footerIconPhone.png" alt="phone" v-show="width > 1199">
+              <a class="footer__tel-span-text" href="tel:+74912776783">+7 (491) 277-67-83</a>
+            </span>
+
+            <span class="footer__tel-span_item">
+              <img src="./src/assets/icon/footerIconSms.png" alt="sms" v-show="width > 1199">
+              <a class="footer__tel-span-text">Напишите нам</a>
+            </span>
+            
+            <span class="footer__tel-span_item">
+              <img src="./src/assets/icon/footerIconPlanet.png" alt="planet" v-show="width > 1199">
+              <a class="footer__tel-span-text">Оплатить заказ онлайн</a>
+            </span>
           </span>
   
           <span class="footer__tel-span footer__tel-span_two">
@@ -115,7 +128,7 @@
             <img class="footer__tel-span footer__tel-span_two-img" ref="telImg" src="./src/assets/icon/footerIconThreeWhite.png" alt="icon">
           </span>
         </div>
-  
+
         <form class="footer__form">
           <span class="footer__form-span">
             <label for="footerInputOne" class="footer__form-span-label">Выбор корма по заболеваниям: </label>
@@ -125,6 +138,8 @@
             </button>
           </span>
         </form>
+
+        <img src="./src/assets/icon/footerCat.png" alt="cat" class="footer__cat" v-show="width > 991">
       </div>
     </footer>
   </div>

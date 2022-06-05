@@ -1,0 +1,317 @@
+@import 'config.scss';
+
+
+
+// footer
+.footer{
+  width: 100%; height: max-content;
+  margin-top: 100px;
+  background: #282828;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+
+  &__container{
+    width: 320px; height: max-content;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__title{
+    font-size: 20px;
+    color: #fff;
+    margin-top: 10px;
+  }
+
+  &__tel{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 21px;
+    margin-top: 23px;
+
+    &-span{
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 15px;
+
+      &_item{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        img{
+          width: 20px; height: 20px;
+        }
+      }
+
+      &-text{
+        color: #fff;
+        cursor: pointer;
+        padding: 0 7px;
+        transition: 0.15s;
+        border-left: 2px dashed #fff;
+
+        &:hover{
+          border-color: #FDA640;
+        }
+      }
+
+      &_two{
+        flex-direction: row;
+        position: relative;
+        gap: 7px;
+        margin-left: 10px;
+        
+
+        &-img{
+          cursor: pointer;
+          width: 35px; height: 34px;  
+        }
+      }
+    }
+  }
+
+  &__form{
+    width: 300px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+
+    &-span{
+      width: max-content; height: max-content;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      &-label{
+        font-size: 16px;
+        color: #fff;
+      }
+
+      &-input{
+        color: rgb(50, 72, 85);
+        width: 280px;
+        outline: none;
+        border: none;
+        border-top-right-radius: 3rem;
+        border-bottom-right-radius: 3rem;
+        padding: 5px 14px;
+
+        &::placeholder{
+          color: gray;
+        }
+      }
+
+      &-btn{
+        border: none;
+        width: 20px; height: 20px;
+        background: transparent;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+        transform: translate(-75%, -27%);
+
+        img{
+          top: 0;
+          left: 0;
+          position: absolute;
+          width: 100%; height: 100%;
+        }
+      }
+    }
+  }
+}
+
+
+
+@media (min-width: 576px){
+  .footer{
+
+    &__container{
+      width: 510px;
+    }
+
+    &__title{
+      font-size: 26px;
+    }
+
+    &__tel{
+
+      &-span {
+        max-width: 300px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: none;
+        flex-direction: row;
+        gap: 7px;
+      }
+    }
+
+    &__form{
+      margin-top: 40px;
+
+      &-span{
+        gap: 9px;
+
+        &-label{
+          font-size: 20px;
+        }
+
+        &-input{
+          width: 360px;
+          font-size: 18px;
+          padding: 7px 13px;
+        }
+
+        &-btn{
+          width: 27px; height: 27px;
+          transform: translate(-70%, -17%);
+        }
+      }
+    }
+  }
+}
+
+
+
+@media (min-width: 768px){
+  .footer{
+    &__container{
+      width: 710px;
+    }
+
+    &__tel{
+
+      &-span{
+        max-width: 650px;
+
+        &-text{
+          border: none;
+        }
+
+        &_two{
+          position: relative;
+          gap: 13px;
+        }
+      }
+    }
+  }
+}
+
+
+
+@media (min-width: 992px){
+  .footer{
+    overflow: hidden;
+    position: relative;
+
+    &__container{
+      width: 810px;
+    }
+
+    &__title{
+      font-size: 26px;
+    }
+
+    &__tel{
+      width: 100%; height: max-content;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      &-span {
+        max-width: max-content;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: none;
+        flex-direction: row;
+        gap: 13px;
+
+        &-text{
+          font-size: 18px;
+          line-height: 1.7;
+          border-bottom: 2px dashed #fff;
+
+          &:hover{
+            border-color: #fda640;
+          }
+        }
+
+        &_two{
+
+          &-img{
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
+
+    &__form{
+      margin-top: 40px;
+
+      &-span{
+        gap: 9px;
+
+        &-label{
+          font-size: 22px;
+        }
+
+        &-input{
+          width: 470px;
+          font-size: 18px;
+          padding: 9px 17px;
+        }
+
+        &-btn{
+          width: 27px; height: 27px;
+          transform: translate(-70%, -17%);
+        }
+      }
+    }
+
+    &__cat{
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 90px; height: 90px;
+    }
+  }
+}
+
+
+
+@media (min-width: 1200px){
+  .footer{
+
+    &__container{
+      width: 1100px;
+
+      &__form{
+  
+        &-span{
+  
+          &-label{
+          }
+  
+          &-input{
+            width: 530px !important;
+            font-size: 20px;
+            padding: 9px 17px;
+          }
+  
+          &-btn{
+            width: 27px; height: 27px;
+            transform: translate(-70%, -17%);
+          }
+        }
+      }
+    }
+  }
+}

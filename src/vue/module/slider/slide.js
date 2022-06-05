@@ -1,6 +1,6 @@
 export default {
   template: `
-    <span class="slider__list-item" :style="{ 'transform': 'translateX(-' + currentSlide * 100 + '%)', 'margin-left': index === 0 ? 19 + 'px' : 0 + 'px' }">
+    <span class="slider__list-item" :style="{ 'transform': 'translateX(-' + currentSlide * 100 + '%)', 'margin-left': index === 0 ? 19 + dbwidth + 'px' : 0 + 'px' }">
       <img :src="'./src/assets/img/' + item.img" >
       <div class="slider__list-item-info" v-if="infoShow">
         <h2 class="slider__list-item-info-title">{{ item.title }}</h2>
@@ -19,5 +19,5 @@ export default {
     }
   },
 
-  props: ['item', 'index', 'currentSlide']
+  props: ['item', 'index', 'currentSlide', 'dbwidth']
 }
