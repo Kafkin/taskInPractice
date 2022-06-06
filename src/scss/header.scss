@@ -73,14 +73,20 @@
 
     &-smoll-logo{
       margin-top: auto;
+      z-index: 9999;
       width: 36px; height: 36px;
     }
-
+    
     &-title-logo{
+      z-index: 9999;
       font-size: 28px;
       color: $font-color;
       font-weight: 900;
       display: none;
+
+      &.white{
+        color: $font-color-active;
+      }
     }
   }
 

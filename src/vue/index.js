@@ -26,6 +26,8 @@ Vue.createApp({
 
       footerSearch: '',
 
+      navBurgerShow: false,
+
       arraySlide: [{
         img: 'imgSlideOne.jpg',
         title: 'Боня',
@@ -144,6 +146,14 @@ Vue.createApp({
       }else{
         this.$refs.footer_img.src = './src/assets/icon/footerSearch.png'
       }
+    },
+
+    navBurgerShow(val){
+      if(val){
+        document.querySelector('body').style.overflow = 'hidden'
+      }else{
+        document.querySelector('body').style.overflow = 'visible'
+      }
     }
   },
 
@@ -162,6 +172,15 @@ Vue.createApp({
       this.currentNavPage = index+1
     },
 
+    nextPage(page){
+      if(this.currentPage === page){
+        return
+      }else{
+        this.currentPage = page
+        this.navBurgerShow = false
+      }
+    },
+
     goto(){
       window.scrollBy({
         top: this.$refs.stock.getBoundingClientRect().top - 20,
@@ -171,7 +190,8 @@ Vue.createApp({
 
     reWindow(){
       this.width = window.innerWidth
-
+      this.navBurgerShow = false
+      
       if(this.width > 991){
         this.countNavPage = 6
         this.dbwidth = 10
@@ -199,7 +219,7 @@ Vue.createApp({
     if(this.width > 991){
       this.countNavPage = 6
       this.dbwidth = 10
-      console.log('width screen >= 992px')
+      // console.log('width screen >= 992px')
     }else{
       this.dbwidth = 0
       this.countNavPage = 3

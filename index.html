@@ -15,9 +15,33 @@
 <body>
     
   <div class="app" id="app" v-cloak>
+    <div class="navBurger" v-show="navBurgerShow">
+      <div class="navBurger__face">
+
+      </div>
+
+      <a href="#" class="navBurger__item pets main" @click.prevent="nextPage('Главная')" :class="{ active:currentPage === 'Главная' }">Главная</a>
+
+      <span class="navBurger__span pets">
+        <a href="#" class="navBurger__item cat pets" @click.prevent="nextPage('Кошки')" :class="{ active:currentPage === 'Кошки' }">Кошки</a>
+        <p class="navBurger__item navBurger__item_border">/</p>
+        <a href="#" class="navBurger__item dog pets" @click.prevent="nextPage('Собаки')" :class="{ active:currentPage === 'Собаки' }">Собаки</a>
+      </span>
+      
+      <a href="#" class="navBurger__item pets other" @click.prevent="nextPage('Другие питомцы')" :class="{ active:currentPage === 'Другие питомцы' }">Другие питомцы</a>
+      <a href="#" class="navBurger__item" @click.prevent="nextPage('Панель Администрации')" :class="{ active:currentPage === 'Панель Администрации' }" v-if="isAdmin">Панель Администрации</a>
+      
+      <span class="navBurger__span">
+        <a href="#" class="navBurger__item pets log" @click.prevent="nextPage('Вход')" :class="{ active:currentPage === 'Вход' }" v-if="!isAuth">Вход</a>
+        <p class="navBurger__item navBurger__item_border" v-if="!isAuth">/</p>
+        <a href="#" class="navBurger__item pets reg" @click.prevent="nextPage('Регистрация')" :class="{ active:currentPage === 'Регистрация' }" v-if="!isAuth">Регистрация</a>
+        <p class="navBurger__item navBurger__item_exit" v-if="isAuth">Выход</p>
+      </span>
+    </div>
+
     <header class="header" id="header">
       <label for="burgerInp" class="header__burger">
-        <input type="checkbox" id="burgerInp">
+        <input type="checkbox" id="burgerInp" v-model="navBurgerShow">
         <span></span>
         <span></span>
         <span></span>
@@ -25,7 +49,7 @@
 
       <span class="header__dbNav">
         <img src="./src/assets/icon/faviconCat.png" alt="cat" class="header__dbNav-smoll-logo">
-        <a href="#" class="header__dbNav-title-logo">PetShop</a>
+        <a href="#" class="header__dbNav-title-logo" :class="{ white: navBurgerShow }">PetShop</a>
       </span>
 
       <nav class="header__nav">
