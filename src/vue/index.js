@@ -1,6 +1,7 @@
 import vSlider from './module/slider/slider.js'
 import vCard from './module/card.js'
 import vCanvas from './module/canvas.js'
+import vMessage from './module/message.js'
 
 Vue.createApp({
 // ------------
@@ -27,6 +28,27 @@ Vue.createApp({
       footerSearch: '',
 
       navBurgerShow: false,
+
+      mSettings: {
+        title: 'Проверка',
+        body: 'Чел это просто проверка, не обращая внимание (-_-)/',
+        color: '#282828',
+        active: false
+      },
+
+      formLog: {
+        email: null,
+        password: null
+      },
+
+      formReg: {
+        name: null,
+        email: null,
+        password: null,
+        dbPassword: null,
+        agreement: false,
+        role: 'user'
+      },
 
       arraySlide: [{
         img: 'imgSlideOne.jpg',
@@ -200,13 +222,92 @@ Vue.createApp({
         this.dbwidth = 0
         this.countNavPage = 3
       }
+    },
+
+    exit(){
+      this.navBurgerShow = false
+      this.nextPage('Главная')
+      this.currentUser = null
+      localStorage.removeItem('currentUser')
+      this.mSettings.title = 'Оповищение'
+      this.mSettings.body = 'До скорого (づ ◕‿◕ )づ'
+      this.mSettings.color = 'green'
+      this.mSettings.active = true
+    },
+
+    log(){
+      if(!!this.formLog.email && !!this.formLog.password){
+
+        const user = this.arrayUser.find(el => el.email === this.formLog.email && el.password === this.formLog.password)
+        !!user ? (() => {
+          this.nextPage('Главная')
+          this.currentUser = user
+          localStorage.setItem('currentUser', JSON.stringify(user))
+          this.mSettings.title = 'Оповищение'
+          this.mSettings.body = `С возвращением ${user.name} (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧`
+          this.mSettings.color = 'green'
+          this.mSettings.active = true
+        })() : (() => {
+          this.mSettings.title = 'Ошибка при входе'
+          this.mSettings.body = 'Товарищ, пользователя с такой почтой или паролем нет (」°ロ°)」'
+          this.mSettings.color = 'red'
+          this.mSettings.active = true
+        })()
+
+      }else{
+        this.mSettings.title = 'Ошибка при входе'
+        this.mSettings.body = 'Товарищ, у вас заполненны не все поля ヽ(・∀・)ﾉ'
+        this.mSettings.color = 'red'
+        this.mSettings.active = true
+      }
+    },
+
+    reg(){
+      if(!!this.formReg.name && !!this.formReg.email && !!this.formReg.password && !!this.formReg.dbPassword && !!this.formReg.agreement){
+
+        if(this.formReg.password === this.formReg.dbPassword){
+
+          !!this.arrayUser.find(el => el.email === this.formReg.email) ? (() => {
+            this.mSettings.title = 'Ошибка при регистрации'
+            this.mSettings.body = 'Товарищ, пользователь с такой почтой уже зарегистрирован на нашем сайте (」°ロ°)」'
+            this.mSettings.color = 'red'
+            this.mSettings.active = true
+          })() : (() => {
+            const newUser = {...this.formReg}
+            delete newUser.dbPassword
+            delete newUser.agreement
+            this.arrayUser.push(newUser)
+            this.currentUser = newUser
+            this.nextPage('Главная')
+            localStorage.setItem('currentUser', JSON.stringify(newUser))
+            localStorage.setItem('arrayUser', JSON.stringify(this.arrayUser))
+            this.mSettings.title = 'Оповищение'
+            this.mSettings.body = `Приветствую ${newUser.name} (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧`
+            this.mSettings.color = 'green'
+            this.mSettings.active = true
+          })()
+
+        }else{
+          this.mSettings.title = 'Ошибка при регистрации'
+          this.mSettings.body = 'Товарищ, пароли не совпадают ヽ(・∀・)ﾉ'
+          this.mSettings.color = 'red'
+          this.mSettings.active = true
+        }
+
+      }else{
+        this.mSettings.title = 'Ошибка при регистрации'
+        this.mSettings.body = 'Товарищ, у вас заполненны не все поля ヽ(・∀・)ﾉ'
+        this.mSettings.color = 'red'
+        this.mSettings.active = true
+      }
     }
   },
 
   components:{
     vSlider,
     vCard,
-    vCanvas
+    vCanvas,
+    vMessage
   },
 
   created(){
@@ -224,6 +325,17 @@ Vue.createApp({
       this.dbwidth = 0
       this.countNavPage = 3
     }
+
+
+    (() => {
+      const user = localStorage.getItem('currentUser')
+      !!user ? this.currentUser = JSON.parse(user) : console.log('Нет сохранненного пользователя')
+    })();
+
+    (() => {
+      const arrayUser = localStorage.getItem('arrayUser')
+      !!arrayUser ? this.arrayUser = JSON.parse(arrayUser) : console.log('Нет сохранненного списка пользователей')
+    })();
   }
 
 // ------------

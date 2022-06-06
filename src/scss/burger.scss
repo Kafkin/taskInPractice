@@ -16,6 +16,10 @@
     font-size: 28px;
     color: #fff2e3;
 
+    &_exit{
+      cursor: pointer;
+    }
+
     &.active{
       color: $font-color-active;
 

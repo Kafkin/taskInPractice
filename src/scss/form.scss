@@ -1,0 +1,60 @@
+@import 'config.scss';
+
+.form{
+  width: 280px; height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+
+  &__span{
+    width: 100%; height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    &-label{
+      font-size: 30px;
+
+      &_checkbox{
+        display: inline;
+        color: $font-color-active;
+        font-size: 30px;
+      }
+    }
+
+    &-input{
+      width: 100%; height: max-content;
+      padding: 7px 13px;
+      border: none;
+      outline: none;
+      font-size: 22px;
+      border-bottom: 3px solid $font-color;
+
+      &_checkbox{
+        display: inline;
+        width: 20px; height: 20px;
+        cursor: pointer;
+      }
+    }
+
+    &_checkbox{
+      display: block;
+    }
+  }
+
+  &__link{
+    font-size: 30px;
+    cursor: pointer;
+    color: $font-color-active;
+  }
+  
+  &__btn{
+    font-size: 24px;
+    padding: 7px 13px;
+    cursor: pointer;
+    background: transparent;
+    border: 3px solid $font-color;
+  }
+}
