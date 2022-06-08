@@ -35,6 +35,7 @@ body{
 #app{
   min-width: 100vw; min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 
@@ -92,40 +93,17 @@ a{
 
 
 
-// page
-.page{
-  width: 100%; min-height: calc(100vh - 3rem); max-height: max-content;
-
-  &.log{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 70px;
-  }
-
-  &.reg{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 70px;
-  }
-
-
-
-  &__title{
-    color: $font-color-active;
-    font-size: 82px;
-
-    &.reg{
-      font-size: 48px;
-    }
-  }
+.loaderSmoll{
+  width: 65px; height: 65px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: loaderSpin 1.5s linear infinite;
 }
 
-@media (min-width: 1200px){
-  .page{
-    min-height: calc(100vh - 5rem);
+@keyframes loaderSpin{
+  100%{
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }

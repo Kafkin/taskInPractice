@@ -112,11 +112,6 @@
         margin-left: auto;
         gap: 7px;
 
-        p:nth-of-type(1){
-          font-size: 14px;
-          user-select: none;
-        }
-
         p:nth-of-type(2){
           cursor: pointer;
         }
@@ -143,6 +138,11 @@
           margin-top: auto;
           width: 32px; height: 32px;
         }
+      }
+
+      &_border{
+        font-size: 14px;
+        user-select: none;
       }
 
       &_exit{

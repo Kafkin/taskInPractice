@@ -4,7 +4,7 @@ export default {
   template: `
     <div class="slider" ref="slider">
       <div class="slider__list">
-        <v-slide v-for="(item, index) in array" :key="index" :item="item" :index="index" :currentSlide="currentSlide" :dbwidth="dbwidth"></v-slide>
+        <v-slide v-for="(item, index) in array" :key="index" :item="item" :index="index" :currentSlide="currentSlide" :dbwidth="dbwidth" @clearTimer="clearTimer" @setTimer="setTimer"></v-slide>
       </div>
     </div>
 
@@ -17,6 +17,8 @@ export default {
   data(){
     return{
       currentSlide: 0,
+
+      timer: null,
 
       touch:{
         startX: 0,
@@ -73,6 +75,16 @@ export default {
 
     prevSlide(){
       (this.currentSlide - 1) < 0 ? this.currentSlide = (this.array.length - 1) : this.currentSlide--
+    },
+
+    setTimer(){
+      console.log('time start');
+      this.timer = setInterval(() => this.nextSlide(), this.time * 1000)
+    },
+
+    clearTimer(){
+      console.log('time stop');
+      clearInterval(this.timer)
     }
   },
 
@@ -81,7 +93,7 @@ export default {
     this.$refs.slider.addEventListener('touchmove', event => this.touchmove(event))
     this.$refs.slider.addEventListener('touchend', () => this.touchend())
 
-    setInterval(() => this.nextSlide(), this.time * 1000)
+    this.setTimer()
   },
 
   components:{

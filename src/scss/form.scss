@@ -1,14 +1,16 @@
 @import 'config.scss';
 
 .form{
-  width: 280px; height: max-content;
+  width: 280px; min-height: 200px; height: max-content;
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: flex-start;
   gap: 30px;
 
   &__span{
     width: 100%; height: max-content;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -20,7 +22,7 @@
       &_checkbox{
         display: inline;
         color: $font-color-active;
-        font-size: 30px;
+        font-size: 22px;
       }
     }
 
@@ -30,6 +32,7 @@
       border: none;
       outline: none;
       font-size: 22px;
+      transform: translateY(10%);
       border-bottom: 3px solid $font-color;
 
       &_checkbox{
@@ -42,6 +45,15 @@
     &_checkbox{
       display: block;
     }
+
+    &-border{
+      width: 50%; height: 3px;
+      background: $font-color-active;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: translateY(5px);
+    }
   }
 
   &__link{
@@ -49,12 +61,66 @@
     cursor: pointer;
     color: $font-color-active;
   }
+
+  &__container-btn{
+    width: 100%; height: max-content;
+    display: flex;
+    overflow: hidden;
+  }
   
   &__btn{
     font-size: 24px;
     padding: 7px 13px;
     cursor: pointer;
-    background: transparent;
+    position: relative;
+    // color: red;
+    background: #fff;
+    overflow-x: hidden;
+    box-sizing: content-box;
     border: 3px solid $font-color;
+    border-bottom: 7px solid #2a3c47;
+
+    &.active{
+      transform: translateY(4px);
+      border-color: $font-color !important;
+    }
+  }
+}
+
+
+
+@media (min-width: 576px){
+  .form{
+    width: 500px;
+    gap: 40px;
+  }
+} 
+
+@media (min-width: 992px){
+  .form{
+    gap: 50px;
+
+    &__span{
+
+      &-label{
+        font-size: 34px;
+      }
+
+      &-input{
+        font-size: 26px;
+
+        &_checkbox{
+          transform: translateY(-6%);
+        }
+      }
+    }
+    
+    &__link{
+      font-size: 32px;
+    }
+
+    &__btn{
+      font-size: 28px;
+    }
   }
 }

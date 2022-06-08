@@ -15,9 +15,9 @@
 <body>
     
   <div class="app" id="app" v-cloak>
-    <v-message :settings="mSettings"></v-message>
+    <v-message :settings="mSettings" :array="arrayImgCat"></v-message>
 
-
+    
 
     <div class="navBurger" v-show="navBurgerShow">
       <a href="#" class="navBurger__item pets main" @click.prevent="nextPage('Главная')" :class="{ active:currentPage === 'Главная' }">Главная</a>
@@ -95,11 +95,13 @@
           кормов и полезные статьи о <span class="span span__orange">домашних животных</span>.
         </p>
 
-        <div class="about__prompt">
+        <div class="about__prompt" :class="{ empty:arrayPrompt.length === 0 }">
           <span v-for="(item, index) in arrayPrompt" :key="index" class="about__prompt-item">
             <img :src="'./src/assets/icon/' + item.icon" class="about__prompt-item-img">
             <h3 class="about__prompt-item-body">{{ item.body }}</h3>
           </span>
+          
+          <img class="loaderSmoll" v-show="arrayPrompt.length === 0" src="./src/assets/icon/loaderSmoll.png">
         </div>
       </div>
 
@@ -107,6 +109,7 @@
         <h4 class="stock__title" ref="stock">Акции</h4>
         <div class="stock__container">
           <v-card v-for="(item, index) in arrayAction" :key="index" :item="item" :index="index" v-show="index >= (currentNavPage*countNavPage)-countNavPage && (currentNavPage*countNavPage) > index"></v-card>
+          <img class="loaderSmoll" v-show="arrayAction.length === 0" src="./src/assets/icon/loaderSmoll.png">
         </div>
         <div class="stock__pagination">
           <span class="stock__pagination-item" v-for="(item, index) in Math.ceil(arrayAction.length / countNavPage)" @click="nextStock(index)" v-show="index >= (currentNavIndex - 1) && (currentNavIndex + 2) >= index">{{ index+1 }}</span>
@@ -116,6 +119,7 @@
       <div class="pets-history">
         <h5 class="pets-history__title">Милые истории домашних животных</h5>
         <v-slider :array="arraySlide" :time="11.3" :dbwidth="dbwidth" :width="width"></v-slider>
+        <img class="loaderSmoll" v-show="arraySlide.length === 0" src="./src/assets/icon/loaderSmoll.png">
       </div>
     </section>
 
@@ -141,18 +145,31 @@
       <h1 class="page__title">Вход</h1>
 
       <form class="form" @submit.prevent="log">
-        <span class="form__span">
-          <label for="inpGroupOne" class="form__span-label">Почта: </label>
-          <input type="email" id="inpGroupOne" class="form__span-input" placeholder="serega@email.com" v-model="formLog.email">
-        </span>
+        <v-input v-for="item in arrayLogInput" :key="item" :settings="item" @assign="assign"></v-input>
 
-        <span class="form__span">
-          <label for="inpGroupOne" class="form__span-label">Пароль: </label>
-          <input type="password" id="inpGroupOne" class="form__span-input" placeholder="9Y03ZU..." v-model="formLog.password">
-        </span>
+        <!-- <v-input :settings="{
+          where: 'formLog.email',
+          alias: 'inpGroupOne',
+          title: 'Почта',
+          type: 'email',
+          placeholder: 'serega@email.com',
+          classSpan: 'form__span',
+          classLabel: '-label',
+          classInput: '-input',
+          classSub: '',
+          max: 23,
+          min: 0
+          }"
+
+          @assign="assign"
+        ></v-input> -->
+
+        <img class="loaderSmoll" style="position: relative;" v-show="arrayLogInput.length === 0" src="./src/assets/icon/loaderSmoll.png">
 
         <a href="#" class="form__link">Забыли пароль?</a>
-        <button class="form__btn" type="submit">Войти</button>
+        <span class="form__container-btn" ref="logSpan">
+          <button class="form__btn" @click="pressBtn('Войти', this)" type="submit" ref="logBtn">Войти</button>
+        </span>
       </form>
     </section>
 
@@ -162,37 +179,34 @@
       <h1 class="page__title reg">Регистрация</h1>
 
       <form class="form" @submit.prevent="reg">
-        <span class="form__span">
-          <label for="inpGroupOne" class="form__span-label">Имя: </label>
-          <input type="text" id="inpGroupOne" class="form__span-input" placeholder="serega" v-model="formReg.name">
-        </span>
+        <v-input v-for="item in arrayRegInput" :key="item" :settings="item" @assign="assign"></v-input>
 
-        <span class="form__span">
-          <label for="inpGroupOne" class="form__span-label">Почта: </label>
-          <input type="email" id="inpGroupOne" class="form__span-input" placeholder="serega@email.com" v-model="formReg.email">
-        </span>
+        <!-- <v-input :settings="{
+          where: 'formReg.agreement',
+          alias: 'inpGroupTwo',
+          title: 'Соглашение на обработку личных данных',
+          type: 'checkbox',
+          placeholder: '',
+          classSpan: 'form__span',
+          classLabel: '-label',
+          classInput: '-input',
+          classSub: '_checkbox',
+          max: 0,
+          min: 0}"
 
-        <span class="form__span">
-          <label for="inpGroupOne" class="form__span-label">Пароль: </label>
-          <input type="password" id="inpGroupOne" class="form__span-input" placeholder="9Y03ZU..." v-model="formReg.password">
-        </span>
-        
-        <span class="form__span">
-          <label for="inpGroupOne" class="form__span-label">Пароль: </label>
-          <input type="password" id="inpGroupOne" class="form__span-input" placeholder="9Y03ZU..." v-model="formReg.dbPassword">
-        </span>
+          @assign="assign"
+        ></v-input> -->
 
-        <span class="form__span form__span_checkbox">
-          <label for="inpGroupOne" class="form__span-label form__span-label_checkbox">Соглашение на обработку личных данных: </label>
-          <input type="checkbox" id="inpGroupOne" class="form__span-input form__span-input_checkbox" v-model="formReg.agreement">
-        </span>
+        <img class="loaderSmoll" style="position: relative;" v-show="arrayRegInput.length === 0" src="./src/assets/icon/loaderSmoll.png">
 
-        <button class="form__btn" type="submit">Зарегистрироваться</button>
+        <span class="form__container-btn">
+          <button class="form__btn" type="submit" @click="pressBtn('Зарегистрироваться')" ref="regBtn">Зарегистрироваться</button>
+        </span>
       </form>
     </section>
 
 
-
+    
     <footer class="footer" id="footer">
       <div class="footer__container">
         <h6 class="footer__title">Хотите задать вопрос?</h6>

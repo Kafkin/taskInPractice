@@ -2,7 +2,7 @@
 
 .navBurger{
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.97);
   z-index: 8888;
   overflow: hidden;
   position: fixed;
@@ -22,64 +22,68 @@
 
     &.active{
       color: $font-color-active;
+      filter: drop-shadow(0 0 3px $font-color-active);
 
-      &.pets{
+      // &.pets{
 
-        &::before{
-          content: '';
-          top: 80%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 270px; height: 270px;
-          display: block;
-          position: absolute;
-          // opacity: 30%;
-          background-size: cover;
-        }
+      //   &::before{
+      //     content: '';
+      //     top: 80%;
+      //     left: 50%;
+      //     transform: translate(-50%, -50%);
+      //     width: 270px; height: 270px;
+      //     display: block;
+      //     position: absolute;
+      //     // opacity: 30%;
+      //     background-size: cover;
+      //     cursor: default;
+      //     user-select: none;
+      //     filter: drop-shadow(0 0 3px $font-color-active);
+      //   }
 
-        &.main{
-          &::before{
-            background: url('../assets/icon/navIconFood.png');
-            background-size: cover;
-          }
-        }
+      //   &.main{
+      //     &::before{
+      //       background: url('../assets/icon/navIconFood.png');
+      //       background-size: cover;
+      //     }
+      //   }
 
-        &.dog{
-          &::before{
-            background: url('../assets/icon/navIconDog.png');
-            background-size: cover;
-          }
-        }
+      //   &.dog{
+      //     &::before{
+      //       background: url('../assets/icon/navIconDog.png');
+      //       background-size: cover;
+      //     }
+      //   }
 
-        &.cat{
-          &::before{
-            background: url('../assets/icon/navIconCat.png');
-            background-size: cover;
-          }
-        }
+      //   &.cat{
+      //     &::before{
+      //       background: url('../assets/icon/navIconCat.png');
+      //       background-size: cover;
+      //     }
+      //   }
 
-        &.other{
-          &::before{
-            background: url('../assets/icon/navIconPapugay.png');
-            background-size: cover;
-          }
-        }
+      //   &.other{
+      //     &::before{
+      //       background: url('../assets/icon/navIconPapugay.png');
+      //       background-size: cover;
+      //     }
+      //   }
 
-        &.log{
-          &::before{
-            background: url('../assets/icon/navIconLog.png');
-            background-size: cover;
-          }
-        }
+      //   &.log{
+      //     &::before{
+      //       background: url('../assets/icon/navIconLog.png');
+      //       background-size: cover;
+      //     }
+      //   }
 
-        &.reg{
-          &::before{
-            transform: translate(-40%, -50%);
-            background: url('../assets/icon/navIconReg.png');
-            background-size: cover;
-          }
-        }
-      }
+      //   &.reg{
+      //     &::before{
+      //       transform: translate(-40%, -50%);
+      //       background: url('../assets/icon/navIconReg.png');
+      //       background-size: cover;
+      //     }
+      //   }
+      // }
     }
   }
 
@@ -108,3 +112,87 @@
     }
   }
 }
+
+
+
+// @media (max-height: 950px){
+//   .navBurger{
+
+//     &__item{
+
+//       &.active{
+        
+//         &.pets{
+  
+//           &::before{
+//             top: 85%;
+//             width: 230px; height: 230px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+
+
+// @media (max-height: 850px){
+//   .navBurger{
+
+//     &__item{
+
+//       &.active{
+        
+//         &.pets{
+  
+//           &::before{
+//             top: 82%;
+//             width: 230px; height: 230px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+
+
+// @media (max-height: 750px){
+//   .navBurger{
+
+//     &__item{
+
+//       &.active{
+        
+//         &.pets{
+  
+//           &::before{
+//             top: 83%;
+//             width: 190px; height: 190px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+
+
+// @media (max-height: 650px){
+//   .navBurger{
+
+//     &__item{
+
+//       &.active{
+        
+//         &.pets{
+  
+//           &::before{
+//             top: 84%;
+//             width: 170px; height: 170px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

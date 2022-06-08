@@ -19,5 +19,19 @@ export default {
     }
   },
 
+  watch:{
+    infoShow(val){
+      if(val){
+        this.$emit('clearTimer')
+        setTimeout(() => {
+          this.infoShow = false
+        }, 17000)
+      }else{
+        this.$emit('clearTimer')
+        this.$emit('setTimer')
+      }
+    }
+  },
+
   props: ['item', 'index', 'currentSlide', 'dbwidth']
 }
