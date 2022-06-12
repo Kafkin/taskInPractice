@@ -107,3 +107,18 @@ a{
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
+
+
+// black
+.black *{
+  color: #fff;
+  // background: #0B0B15;
+  &.form *{
+    border-color: #fff !important;
+  }
+
+  .form__span-label_checkbox{
+    color: $font-color-active !important;
+  }
+}

@@ -1,6 +1,6 @@
 export default {
   template: `
-    <canvas class="canvas" id="canvas"></canvas>
+    <canvas class="canvas" id="canvas" :class="{ black: black }"></canvas>
   `,
 
   data(){
@@ -9,20 +9,26 @@ export default {
     }
   },
 
-  props: [],
+  props: ['main_color', 'black'],
+
+  watch:{
+    
+  },
 
   mounted(){
     ( async () => {
       const box = await document.getElementById('boxCanvas')
-      
+
       const cnv = document.querySelector('canvas')
       const ctx = cnv.getContext('2d')
+
+      const color = this.main_color
   
       let particleArray = []
       let particleOnScreen = 20
   
       let cw, ch
-  
+
       function reSize(){
         // console.log('reSize');
         cw = cnv.width = box.offsetWidth
@@ -42,11 +48,12 @@ export default {
       reSize()
           
       class Particle{
-        constructor(){
+        constructor(color){
           this.x = Math.random() * cw
           this.y = ch + 1000
           this.speedY = this.random(-5, -1)
           this.r = this.random(0, 53)
+          this.color = color
         }
         random(min, max){
           return Math.random() * (max - min) + min
@@ -55,7 +62,7 @@ export default {
         pDraw(){
           ctx.beginPath()
           ctx.arc(this.x, this.y, this.r, 0, Math.PI*2)
-          ctx.fillStyle = '#0B0B15'
+          ctx.fillStyle = this.color
           ctx.fill()
         }
   
@@ -71,7 +78,7 @@ export default {
   
       function arrayPush(){
         for(let i=0; i<particleOnScreen; i++){
-          particleArray.push(new Particle(cw, ch))
+          particleArray.push(new Particle(color))
         }
       }
       arrayPush()
@@ -87,7 +94,7 @@ export default {
         requestAnimationFrame(loop)
       }
       loop()
-  
+
       window.addEventListener('resize', () => {
         if(cw > 576){
           particleArray.length = 0

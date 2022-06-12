@@ -32,6 +32,7 @@
       border: none;
       outline: none;
       font-size: 22px;
+      background: transparent;
       transform: translateY(10%);
       border-bottom: 3px solid $font-color;
 
@@ -59,7 +60,7 @@
   &__link{
     font-size: 30px;
     cursor: pointer;
-    color: $font-color-active;
+    color: $font-color-active !important;
   }
 
   &__container-btn{
@@ -76,13 +77,14 @@
     // color: red;
     background: #fff;
     overflow-x: hidden;
+    background: transparent;
     box-sizing: content-box;
     border: 3px solid $font-color;
     border-bottom: 7px solid #2a3c47;
 
     &.active{
-      transform: translateY(4px);
-      border-color: $font-color !important;
+      transform: translateY(3.5px);
+      // border-color: $font-color !important;
     }
   }
 }

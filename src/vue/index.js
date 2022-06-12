@@ -12,6 +12,9 @@ Vue.createApp({
       width: 0,
       dbwidth: 0,
 
+      black: false,
+      colorCanvas: '#0B0B15',
+
       currentPage: 'Главная',
       currentUser: null,
 
@@ -51,6 +54,8 @@ Vue.createApp({
       arrayPrompt: [],
       arrayImgCat: [],
       arrayUser: [],
+
+      arrayPromptWhite: '[{"icon":"aboutOneWhite.png","body":"Широкий ассортимент зоотоваров"},{"icon":"aboutTwoWhite.png","body":"Крупнейшая сеть зоомагазинов"},{"icon":"aboutThreeWhite.png","body":"Собственная курьерская служба"},{"icon":"aboutFourWhite.png","body":"Забота о каждом питомце"}]'
     }
   },
 
@@ -69,6 +74,18 @@ Vue.createApp({
       }else{
         document.querySelector('body').style.overflow = 'visible'
       }
+    },
+
+    black(val){
+      localStorage.setItem('black', JSON.stringify(val))
+
+      if(val){
+        this.colorCanvas = '#fff'
+        document.querySelector('body').style.background = '#0B0B15'
+      }else{
+        this.colorCanvas = '#0B0B15'
+        document.querySelector('body').style.background = '#fff'
+      }
     }
   },
 
@@ -83,6 +100,10 @@ Vue.createApp({
 
     progress(){
       return this.formLog.email === null ? 0 : (this.formLog.email.length * 100) / 15
+    },
+
+    arrayAbout(){
+      return this.black ? JSON.parse(this.arrayPromptWhite) : this.arrayPrompt
     }
   },
 
@@ -247,6 +268,11 @@ Vue.createApp({
     (() => {
       const user = localStorage.getItem('currentUser')
       !!user ? this.currentUser = JSON.parse(user) : console.log('Нет сохранненного пользователя')
+    })();
+
+    (() => {
+      const mode = localStorage.getItem('black')
+      !!mode ? this.black = JSON.parse(mode) : console.log('Режим не найден')
     })();
 
     this.arrayImgCat = await this.request('https://6282938ced9edf7bd886bc0a.mockapi.io/arrayImgCat')

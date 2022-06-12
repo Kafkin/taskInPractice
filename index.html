@@ -8,7 +8,7 @@
 
   <!-- icon -->
   <link rel="shortcut icon" href="./src/assets/icon/faviconCat.png" type="image/x-icon">
-
+  
   <!-- style -->
   <link rel="stylesheet" href="./src/css/index.min.css">
 </head>
@@ -16,8 +16,6 @@
     
   <div class="app" id="app" v-cloak>
     <v-message :settings="mSettings" :array="arrayImgCat"></v-message>
-
-    
 
     <div class="navBurger" v-show="navBurgerShow">
       <a href="#" class="navBurger__item pets main" @click.prevent="nextPage('Главная')" :class="{ active:currentPage === 'Главная' }">Главная</a>
@@ -39,9 +37,7 @@
       </span>
     </div>
 
-
-
-    <header class="header" id="header">
+    <header class="header" id="header" :class="{ black: black }">
       <label for="burgerInp" class="header__burger">
         <input type="checkbox" id="burgerInp" v-model="navBurgerShow">
         <span></span>
@@ -50,13 +46,13 @@
       </label>
 
       <span class="header__dbNav">
-        <img src="./src/assets/icon/faviconCat.png" alt="cat" class="header__dbNav-smoll-logo">
+        <img src="./src/assets/icon/faviconCat.png" alt="cat" class="header__dbNav-smoll-logo" @click="black = !black">
         <a href="#" class="header__dbNav-title-logo" :class="{ white: navBurgerShow }">PetShop</a>
       </span>
 
       <nav class="header__nav">
         <span class="header__nav-span">
-          <img src="./src/assets/icon/faviconCat.png" alt="cat" class="header__nav-item_logo-img">
+          <img src="./src/assets/icon/faviconCat.png" alt="cat" class="header__nav-item_logo-img" @click="black = !black">
           <a href="#" class="header__nav-item header__nav-item_logo">PetShop</a>
         </span>
   
@@ -77,14 +73,13 @@
       </nav>
     </header>
 
-
-
-    <section class="page" v-if="currentPage === 'Главная'">
+    <section class="page" v-if="currentPage === 'Главная'" :class="{ black: black }">
       <div class="box" id="boxCanvas">
         <img class="box__img" src="./src/assets/img/bgDog.png" alt="dog-big-dog">
         <h1 class="box__title">Магазин домашних животных =3<br>Угости своего маленького друга.</h1>
         <button class="box__btn" @click="goto">Угостить</button>
-        <v-canvas></v-canvas>
+        <v-canvas :main_color="colorCanvas" :black="black" v-if="black"></v-canvas>
+        <v-canvas :main_color="colorCanvas" :black="black" v-if="!black"></v-canvas>
       </div>
 
       <div class="about">
@@ -96,12 +91,12 @@
         </p>
 
         <div class="about__prompt" :class="{ empty:arrayPrompt.length === 0 }">
-          <span v-for="(item, index) in arrayPrompt" :key="index" class="about__prompt-item">
+          <span v-for="(item, index) in arrayAbout" :key="index" class="about__prompt-item">
             <img :src="'./src/assets/icon/' + item.icon" class="about__prompt-item-img">
             <h3 class="about__prompt-item-body">{{ item.body }}</h3>
           </span>
           
-          <img class="loaderSmoll" v-show="arrayPrompt.length === 0" src="./src/assets/icon/loaderSmoll.png">
+          <img class="loaderSmoll" v-show="!black && arrayPrompt.length === 0" src="./src/assets/icon/loaderSmoll.png">
         </div>
       </div>
 
@@ -123,25 +118,15 @@
       </div>
     </section>
 
-
-
     <section class="page" v-if="currentPage === 'Кошки'">О Кошки</section>
-
-
 
     <section class="page" v-if="currentPage === 'Собаки'">Собаки</section>
 
-
-
     <section class="page" v-if="currentPage === 'Другие питомцы'">Другие питомцы</section>
-
-
 
     <section class="page" v-if="currentPage === 'Панель Администрации'">Панель Администрации</section>
 
-
-
-    <section class="page log" v-if="currentPage === 'Вход'">
+    <section class="page log" v-if="currentPage === 'Вход'" :class="{ black: black }">
       <h1 class="page__title">Вход</h1>
 
       <form class="form" @submit.prevent="log">
@@ -173,9 +158,7 @@
       </form>
     </section>
 
-
-
-    <section class="page reg" v-if="currentPage === 'Регистрация'">
+    <section class="page reg" v-if="currentPage === 'Регистрация'" :class="{ black: black }">
       <h1 class="page__title reg">Регистрация</h1>
 
       <form class="form" @submit.prevent="reg">
@@ -204,8 +187,6 @@
         </span>
       </form>
     </section>
-
-
     
     <footer class="footer" id="footer">
       <div class="footer__container">
